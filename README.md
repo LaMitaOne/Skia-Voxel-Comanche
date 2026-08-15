@@ -11,7 +11,7 @@ A high-performance, CPU-based Voxel-Space rendering engine written in Delphi usi
 
 Sample video: https://youtu.be/k75dcsOM_6A     
      
-"Despite being just ~800 lines of code, this is a complete all-in-one voxel sandbox. Unlike most traditional voxel-space demos that only render static heightmaps, this project combines dynamic heightmap destruction, a 3D-projected particle system, and flight physics into a single monolithic engine."
+"Despite being just ~1200 lines of code, this is a complete all-in-one voxel sandbox. Unlike most traditional voxel-space demos that only render static heightmaps, this project combines dynamic heightmap destruction, a 3D-projected particle system, and flight physics into a single monolithic engine."
      
 ✨ Features
 
