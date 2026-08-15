@@ -24,8 +24,7 @@ Rendering & Performance
 
 World & Environment
 
-     Procedural Generation: Radial falloff island generation combined with noise and texture variations (water, sand, grass, rock).
-     3D Spherical Star Field: True azimuth/altitude projection that is correctly occluded by the voxel terrain.
+     Procedural Generation: Radial falloff island generation combined with noise and texture variations (water, sand, grass, rock).       
      Night Atmosphere: Custom dark palette designed for moonlight and fog blending.
 
 Combat & Physics
