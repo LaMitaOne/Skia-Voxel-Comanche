@@ -2,6 +2,9 @@ SkiaVoxelComanche
 A high-performance, CPU-based Voxel-Space rendering engine written in Delphi using Skia4Delphi. It simulates a Comanche-style helicopter flight experience over a procedurally generated voxel island at night.
 
 SkiaVoxelComanche v 0.1   
+
+
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/LaMitaOne/Skia-Voxel-Comanche)    
      
 <img width="633" height="473" alt="Unbenannt" src="https://github.com/user-attachments/assets/f14b4016-c651-4f3b-8bbe-7d096ca58112" />
            
@@ -42,5 +45,17 @@ Fire Rockets	R
     Download the repository.
     Extract and run the included .exe file. (No installation required)
     Alternatively, open the .pas file in Delphi and compile it yourself using the Skia4Delphi framework.
-
-
+    
+More game repos:    
+      
+🎮 Skia4Delphi Games (each one file, no ext engine):    
+   2D Platformer https://github.com/LaMitaOne/Skia_PlatformerGame    
+   2D Lemmings/Worms/Portal/Touch hybrid https://github.com/LaMitaOne/SkiaLemmings       
+   2D Side-scrolling space shooter https://github.com/LaMitaOne/SkiaStarPatrols    
+   2.5D C&C style isometric rts https://github.com/LaMitaOne/Skia-RTS-Game   
+   2.5D Isometric cat game https://github.com/LaMitaOne/Skia-A-Cats-Life    
+   2.5D Raycasting doom base https://github.com/LaMitaOne/SkiaDoomBase     
+   Tetris clone https://github.com/LaMitaOne/Skiatris    
+     
+🎮 Game components FMX:    
+   MRX Gamepad Core https://github.com/LaMitaOne/MRX-Gamepad-Core   
