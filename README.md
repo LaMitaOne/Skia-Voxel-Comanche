@@ -1,3 +1,4 @@
+
 SkiaVoxelComanche    
 A high-performance, CPU-based Voxel-Space rendering engine written in Delphi using Skia4Delphi. It simulates a Comanche-style helicopter flight experience over a procedurally generated voxel island at night.
 
@@ -5,9 +6,11 @@ A high-performance, CPU-based Voxel-Space rendering engine written in Delphi usi
        
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/LaMitaOne/Skia-Voxel-Comanche)    
      
-<img width="633" height="473" alt="Unbenannt" src="https://github.com/user-attachments/assets/f14b4016-c651-4f3b-8bbe-7d096ca58112" />
+<img width="360" height="202" alt="Unbenannt" src="https://github.com/user-attachments/assets/f14b4016-c651-4f3b-8bbe-7d096ca58112" />
+<img width="360" height="202" alt="aywnmz" src="https://github.com/user-attachments/assets/afedf3d8-0af1-484a-a702-c8af67fbc2db" />   
 
-
+Sample video: https://youtu.be/k75dcsOM_6A     
+     
 "Despite being just ~800 lines of code, this is a complete all-in-one voxel sandbox. Unlike most traditional voxel-space demos that only render static heightmaps, this project combines dynamic heightmap destruction, a 3D-projected particle system, and flight physics into a single monolithic engine."
      
 ✨ Features
