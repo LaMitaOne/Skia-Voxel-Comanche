@@ -33,15 +33,14 @@ Combat & Physics
      Procedural Projectiles: Side-alternating rocket fire with trajectory arcs and timed explosions.
 
 🎮 Controls
-Action
-	
-Key
-Turn	Mouse or A / D
-Throttle Up/Down	+ / - (or P / O)
-Forward / Backward	W / S (uses current throttle)
-Altitude Up / Down	E / Q
-Fire Rockets	R
-  
+
+     Action   Key
+     Turn	Mouse or A / D
+     Throttle Up/Down	+ / - (or P / O)
+     Forward / Backward	W / S (uses current throttle)
+     Altitude Up / Down	E / Q
+     Fire Rockets	R
+   
 🚀 How to Run
 
     Download the repository.
