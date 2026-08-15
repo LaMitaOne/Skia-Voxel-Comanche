@@ -1,0 +1,46 @@
+SkiaVoxelComanche
+A high-performance, CPU-based Voxel-Space rendering engine written in Delphi using Skia4Delphi. It simulates a Comanche-style helicopter flight experience over a procedurally generated voxel island at night.
+
+SkiaVoxelComanche v 0.1   
+     
+<img width="633" height="473" alt="Unbenannt" src="https://github.com/user-attachments/assets/f14b4016-c651-4f3b-8bbe-7d096ca58112" />
+           
+✨ Features
+
+Rendering & Performance
+
+     True Voxel-Space Raycasting: 1D heightmap lookups with a Y-Buffer for occlusion.
+     Unbounded Terrain: Modulo-wrapped coordinates for an infinite flight grid.
+     Heavy Optimizations: Trigonometry caching, dynamic Level of Detail (LOD) steps, pixel skipping in the far distance, and fast-math (multiplication instead of division).
+     Volumetric Fog: Distance-based color blending into a black night horizon.
+
+World & Environment
+
+     Procedural Generation: Radial falloff island generation combined with noise and texture variations (water, sand, grass, rock).
+     3D Spherical Star Field: True azimuth/altitude projection that is correctly occluded by the voxel terrain.
+     Night Atmosphere: Custom dark palette designed for moonlight and fog blending.
+
+Combat & Physics
+
+     Destructible Voxel Towers: Enemy towers have HP, visually deteriorate (cracks/darkening) when damaged, and instantly collapse into rubble when destroyed.
+     Particle System: Gravity-affected explosions spawning fire, smoke, and debris.
+     Helicopter Physics: Throttle-based forward speed (with inertia/damping) decoupled from independent vertical altitude control.
+     Procedural Projectiles: Side-alternating rocket fire with trajectory arcs and timed explosions.
+
+🎮 Controls
+Action
+	
+Key
+Turn	Mouse or A / D
+Throttle Up/Down	+ / - (or P / O)
+Forward / Backward	W / S (uses current throttle)
+Altitude Up / Down	E / Q
+Fire Rockets	R
+  
+🚀 How to Run
+
+    Download the repository.
+    Extract and run the included .exe file. (No installation required)
+    Alternatively, open the .pas file in Delphi and compile it yourself using the Skia4Delphi framework.
+
+
