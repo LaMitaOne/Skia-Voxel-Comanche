@@ -27,7 +27,7 @@ World & Environment
 
 Combat & Physics
 
-     Destructible Voxel Towers: Enemy towers have HP, visually deteriorate (cracks/darkening) when damaged, and instantly collapse into rubble when destroyed.
+     Destructible Voxel Towers: Enemy towers have HP, visually deteriorate (cracks/darkening) when damaged, and instantly collapse into rubble when destroyed. (the rockets are very cheap trash, so they not hit so often :P)
      Particle System: Gravity-affected explosions spawning fire, smoke, and debris.
      Helicopter Physics: Throttle-based forward speed (with inertia/damping) decoupled from independent vertical altitude control.
      Procedural Projectiles: Side-alternating rocket fire with trajectory arcs and timed explosions.
