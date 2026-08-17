@@ -1,12 +1,16 @@
 {*******************************************************************************
-  SkiaVoxelComanche (Voxel-Space Engine v0.1)
+  SkiaVoxelComanche (Voxel-Space Engine v0.2)
 ********************************************************************************
   A high-performance, CPU-based Voxel-Space rendering engine written in Delphi
   using Skia4Delphi. It simulates a Comanche-style helicopter flight experience
   over a procedurally generated voxel island at night.
-
   Author:  Lara Miriam Tamy Reschke
   License: MIT
+
+  Latest Changes:
+    v0.2:
+      - Fixed Stars not showing
+
 *******************************************************************************
   TECHNICAL FEATURES & IMPLEMENTATIONS:
 *******************************************************************************
@@ -16,7 +20,6 @@
   - Z-Buffer (Y-Buffer)        : Painter's algorithm sorting for occlusion.
   - Volumetric Fog              : Distance-based linear interpolation (Lerp)
                                   mixing terrain colors with a black horizon fog.
-
   [ Performance Optimizations ]
   - Cached Skia Objects         : Reuses ISkPaint instances to prevent memory
                                   allocation overhead during frame drawing.
@@ -29,7 +32,6 @@
   - Fast Math                   : Pre-calculated inverse screen width and tile
                                   scale to replace slow division with fast
                                   multiplication inside the main loop.
-
   [ Procedural World Generation ]
   - Radial Island Generation    : Hypotenuse-based falloff for natural island
                                   shapes, combined with sine/cosine noise.
@@ -37,7 +39,6 @@
                                   color variations (grass, sand, rock, water).
   - Procedural 3D Structures    : Generation of massive enemy towers integrated
                                   directly into the voxel heightmap.
-
   [ Destructible Environment & Combat ]
   - Entity Health System        : Voxel structures (like towers) have HP.
                                   Projectiles apply damage on impact.
@@ -50,13 +51,11 @@
   - Advanced Particle System    : Explosions spawn dynamic particles (fire, smoke,
                                   and massive rotating angular voxel debris)
                                   affected by gravity.
-
   [ Atmospheric & Environmental ]
   - 3D Spherical Star Field     : True 3D spherical projection (Azimuth/Altitude)
                                   for stars. Correctly occluded by terrain.
   - Night Sky & Lighting        : Custom dark palette for moonlight visibility
                                   and seamless blending with the black fog wall.
-
   [ Physics & Controls ]
   - Independent Flight Physics  : Throttle-based forward speed (+ / - keys)
                                   decoupled from precise vertical altitude
@@ -203,7 +202,6 @@ begin
   else
     Result := Hypot(X, Y);
 end;
-
 { =============================================================================
   WORLD GENERATION
 ============================================================================= }
@@ -329,7 +327,6 @@ begin
     end;
   end;
 end;
-
 { =============================================================================
   PARTICLE SYSTEM
 ============================================================================= }
@@ -403,7 +400,6 @@ begin
     end;
   end;
 end;
-
 { =============================================================================
   LOGIC & PHYSICS
 ============================================================================= }
@@ -660,7 +656,6 @@ begin
     end;
   end;
 end;
-
 { =============================================================================
   RENDERING: STARS
 ============================================================================= }
@@ -678,20 +673,31 @@ begin
   HalfW := ADest.Width / 2.0;
   HorizonY := ADest.Height * (0.5 - CAMERA_PITCH);
 
+  // Render the night sky background above the horizon.
+  // This must be done before drawing the stars to provide a clean canvas,
+  // and prevents the terrain renderer from overwriting the stars with a black box.
+  Paint.Color := $FF020205; // Slightly bluish-black for a realistic night sky
+  ACanvas.DrawRect(RectF(0, 0, ADest.Width, HorizonY), Paint);
+
+  // Render the 3D spherical star field
   for I := 0 to High(FStars) do
   begin
+    // Calculate relative azimuth to the player's view direction
     RelAz := FStars[I].Azimuth - FPlayerAngle;
     while RelAz > Pi do
       RelAz := RelAz - 2 * Pi;
     while RelAz < -Pi do
       RelAz := RelAz + 2 * Pi;
 
+    // Check if the star is within the Field of View (FOV)
     if Abs(RelAz) < (FOV / 2) then
     begin
+      // Project star coordinates to 2D screen space
       ProjX := HalfW + (RelAz / (FOV / 2)) * HalfW;
       ProjY := HorizonY - (ADest.Height * 0.5) * (FStars[I].Altitude / (Pi / 2));
 
-      StarSize := 1.5 + (Sin(FAnimPhase * 5 + I) * 0.5); // Twinkle effect
+      // Calculate twinkle effect using a sine wave
+      StarSize := 1.5 + (Sin(FAnimPhase * 5 + I) * 0.5);
 
       Paint.Color := $FFFFFFFF;
       ACanvas.DrawCircle(PointF(ProjX, ProjY), StarSize, Paint);
@@ -729,11 +735,13 @@ begin
     FPaintCache := TSkPaint.Create(TSkPaintStyle.Fill);
   FPaintCache.AntiAlias := False;
 
-  FPaintCache.Color := $FF000000;
-  ACanvas.DrawRect(RectF(0, 0, ScreenW, HorizonY), FPaintCache);
+  // Fill the area below the horizon with base fog color.
+  // The sky area above the horizon is intentionally skipped here to preserve
+  // the stars and night sky drawn in the previous render step.
   FPaintCache.Color := $FF050505;
   ACanvas.DrawRect(RectF(0, HorizonY, ScreenW, ScreenH), FPaintCache);
 
+  // Initialize Z-Buffer (Y-Buffer) for occlusion culling
   for ScreenX := 0 to ScreenW - 1 do
     FYBuffer[ScreenX] := ScreenH;
 
@@ -765,7 +773,7 @@ begin
   Z := 1;
   while Z <= MAX_RENDER_DIST do
   begin
-    // LOD: Increase step size in the far distance
+    // Level of Detail (LOD): Increase step size in the far distance
     if Z < 200 then
       StepZ := 1
     else if Z < 400 then
@@ -777,7 +785,7 @@ begin
     else
       StepZ := 20;
 
-    // Cache Trigonometry
+    // Cache Trigonometry for current ray slice
     CosL := Cos(FPlayerAngle - FOV / 2);
     SinL := Sin(FPlayerAngle - FOV / 2);
     CosR := Cos(FPlayerAngle + FOV / 2);
@@ -790,7 +798,7 @@ begin
 
     PrevHeight := HorizonY;
 
-    // LOD: Skip pixels in the far distance
+    // LOD: Skip pixels in the far distance to save performance
     if Z > 600 then
       StepX := 2
     else
@@ -806,6 +814,7 @@ begin
       RayDirX := LeftX + DeltaX;
       RayDirY := LeftY + DeltaY;
 
+      // Modulo wrapping for infinite terrain
       MapX := Trunc(RayDirX * InvTILE_SCALE) mod MAP_SIZE;
       MapY := Trunc(RayDirY * InvTILE_SCALE) mod MAP_SIZE;
       if MapX < 0 then
@@ -816,6 +825,8 @@ begin
       DrawHeight := FHeightMap[MapX, MapY];
       HeightOnScreen := HorizonY - ((DrawHeight - CamHeight) * 800.0) / Z;
 
+      // Painter's algorithm: Only draw if the voxel is closer to the camera
+      // than what has been drawn in this column so far.
       if HeightOnScreen < FYBuffer[ScreenX] then
       begin
         YPos := HeightOnScreen;
@@ -829,26 +840,30 @@ begin
             Color := $FF000000; // Black cracks
         end;
 
+        // Calculate distance shading
         Shade := EnsureRange(1.0 - (Z / MAX_RENDER_DIST), 0.4, 1.0);
         R := (Color and $00FF0000) shr 16;
         G := (Color and $0000FF00) shr 8;
         B := Color and $000000FF;
 
-        // Mix terrain with fog (Lerp)
+        // Mix terrain color with volumetric fog (Linear Interpolation)
         R := (R * Shade) * (1 - FogFactor) + (FogR * FogFactor);
         G := (G * Shade) * (1 - FogFactor) + (FogG * FogFactor);
         B := (B * Shade) * (1 - FogFactor) + (FogB * FogFactor);
 
         FPaintCache.Color := $FF000000 or (Trunc(R) shl 16) or (Trunc(G) shl 8) or Trunc(B);
 
+        // Draw the vertical voxel slice
         ACanvas.DrawRect(RectF(ScreenX, YPos, ScreenX + DrawWidth, FYBuffer[ScreenX]), FPaintCache);
 
+        // Draw a small shadow line to emphasize height differences (edges)
         if (ScreenX > 0) and (Abs(HeightOnScreen - PrevHeight) > 1.0) and (FogFactor < 0.8) then
         begin
           FPaintCache.Color := $88000000;
           ACanvas.DrawRect(RectF(ScreenX, YPos, ScreenX + DrawWidth, YPos + 2.0), FPaintCache);
         end;
 
+        // Update the Y-Buffer for occlusion
         FYBuffer[ScreenX] := YPos;
       end;
 
@@ -913,7 +928,6 @@ begin
     end;
   end;
 end;
-
 { =============================================================================
   RENDERING: PARTICLES
 ============================================================================= }
@@ -963,7 +977,6 @@ begin
     end;
   end;
 end;
-
 { =============================================================================
   RENDERING: COCKPIT OVERLAY
 ============================================================================= }
@@ -1027,7 +1040,6 @@ begin
   Paint.Color := $6400FF00;
   ACanvas.DrawRect(RectF(ADest.Width - 35, ADest.CenterPoint.Y - 25, ADest.Width - 20, ADest.CenterPoint.Y + 25), Paint);
 end;
-
 { =============================================================================
   MAIN DRAW & THREADING
 ============================================================================= }
