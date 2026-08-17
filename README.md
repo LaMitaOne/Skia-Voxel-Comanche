@@ -6,7 +6,7 @@ A high-performance, CPU-based Voxel-Space rendering engine written in Delphi usi
        
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/LaMitaOne/Skia-Voxel-Comanche)    
      
-<img width="360" height="202" alt="Unbenannt" src="https://github.com/user-attachments/assets/f14b4016-c651-4f3b-8bbe-7d096ca58112" />
+<img width="636" height="510" alt="Unbenannt" src="https://github.com/user-attachments/assets/7a618b51-70a8-4a12-b51f-02605b46e52d" />
 <img width="360" height="202" alt="aywnmz" src="https://github.com/user-attachments/assets/afedf3d8-0af1-484a-a702-c8af67fbc2db" />   
 
 Sample video: https://youtu.be/k75dcsOM_6A     
