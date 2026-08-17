@@ -2,7 +2,7 @@
 SkiaVoxelComanche    
 A high-performance, CPU-based Voxel-Space rendering engine written in Delphi using Skia4Delphi. It simulates a Comanche-style helicopter flight experience over a procedurally generated voxel island at night.
 
-**Skia Voxel Comanche v 0.1**   
+**Skia Voxel Comanche v 0.2**   
        
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/LaMitaOne/Skia-Voxel-Comanche)    
      
@@ -24,7 +24,8 @@ Rendering & Performance
 
 World & Environment
 
-     Procedural Generation: Radial falloff island generation combined with noise and texture variations (water, sand, grass, rock).       
+     Procedural Generation: Radial falloff island generation combined with noise and texture variations (water, sand, grass, rock). 
+     3D Spherical Star Field: True 3D spherical projection (Azimuth/Altitude) for stars. Correctly occluded by terrain.     
      Night Atmosphere: Custom dark palette designed for moonlight and fog blending.
 
 Combat & Physics
@@ -49,8 +50,11 @@ Combat & Physics
     Extract and run the included .exe file. (No installation required)
     Alternatively, open the .pas file in Delphi and compile it yourself using the Skia4Delphi framework.
     
-More game repos:    
-      
+Latest Changes:     
+   v0.2    
+     - Fixed Stars not showing    
+    
+More game repos:          
       
 🎮 Skia4Delphi Games (each one file, no ext engine):    
    2D JumpnRun Platformer https://github.com/LaMitaOne/Skia_PlatformerGame   
